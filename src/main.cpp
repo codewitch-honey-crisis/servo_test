@@ -33,6 +33,8 @@ int posDegrees = 0;
 
 int posDelta = 1;
 
+// timestamp
+uint32_t ts = 0;
 void setup() {
 
   Serial.begin(115200);
@@ -52,10 +54,13 @@ void setup() {
 
 void loop() {
 
+  // only print every 100 millis
+  if(millis()>ts+100) {
+    ts = millis();
     // Print to serial monitor
     Serial.print("Pos degrees = ");
     Serial.println(posDegrees);
-
+  }
   int pwm0 = map(posDegrees, 0, 180, SERVOMIN, SERVOMAX);
   int pwm0_rev = map(180-posDegrees, 0, 180, SERVOMIN, SERVOMAX);
   
